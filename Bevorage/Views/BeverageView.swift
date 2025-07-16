@@ -7,20 +7,33 @@
 
 import SwiftUI
 
-struct BeverageDetail: View {
+struct BeverageView: View {
     var beverage: Beverage
     
     var body: some View {
         HStack {
-            Text(beverage.name).font(.headline)
-            if let price = beverage.price {
-                Spacer()
-                Text("$\(price.description)").font(.caption)
+            Image("DefaultImage")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 150, height: 150)
+            VStack {
+                Text(beverage.name).font(.headline)
+                if let price = beverage.price {
+                    Text("$\(price.description)").font(.caption)
+                }
             }
         }
     }
 }
 
+struct BeverageDetail: View {
+    var beverage: Beverage
+    
+    var body: some View {
+        Text("temp")
+    }
+}
+
 #Preview {
-    BeverageDetail(beverage: Beverage(name: "Test", price: 1.0))
+    BeverageView(beverage: Beverage(name: "Onevinoen blanc deu pafwefwe wfe fewp", price: 1.0))
 }

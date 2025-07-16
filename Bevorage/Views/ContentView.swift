@@ -13,16 +13,16 @@ struct ContentView: View {
     @Query private var items: [Beverage]
 
     var body: some View {
-        NavigationSplitView {
+        NavigationStack {
             List {
                 ForEach(items) { item in
                     NavigationLink {
-                        Text("Item at \(item.price ?? 0.0)")
+                        BeverageDetail(beverage: item)
                     } label: {
-                        Text(item.name)
+                        BeverageView(beverage: item)
                     }
                 }
-                .onDelete(perform: deleteItems)
+                .deleteDisabled(true)
             }
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
@@ -30,12 +30,9 @@ struct ContentView: View {
                         Button(action: addItem) {
                             Label("Add Item", systemImage: "plus")
                         }
-                        EditButton()
                     }
                 }
             }
-        } detail: {
-            Text("Select an item")
         }
     }
 
@@ -46,13 +43,14 @@ struct ContentView: View {
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    // Not allowing deleting for now
+    /* private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
                 modelContext.delete(items[index])
             }
         }
-    }
+    }*/
 }
 
 #Preview {
