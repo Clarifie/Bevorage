@@ -11,6 +11,7 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Beverage]
+    @State private var searchText: String = ""
 
     var body: some View {
         NavigationStack {
@@ -24,15 +25,17 @@ struct ContentView: View {
                 }
                 .deleteDisabled(true)
             }
-            .toolbar {
-                ToolbarItem(placement: .bottomBar) {
-                    HStack {
-                        Button(action: addItem) {
-                            Label("Add Item", systemImage: "plus")
-                        }
-                    }
+            .listStyle(.grouped)
+            .searchable(text: $searchText, prompt: "Hmm")
+            .overlay(alignment: .bottom, content: {
+                HStack {
+                    LargeButton(action: addItem, content: {
+                        Image(systemName: "swift")
+                            .foregroundColor(.black)
+                            .font(.system(size: 50, weight: .semibold))
+                    })
                 }
-            }
+            })
         }
     }
 

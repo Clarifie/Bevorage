@@ -12,10 +12,14 @@ import SwiftData
 final class Beverage {
     public var name: String
     public var price: Double?
+    public var year: Int?
     @Relationship(deleteRule: .cascade, inverse: \Rating.beverage)
     public var latestRating: [Rating]
     
-    init(name: String = "", price: Optional<Double> = .none, latestRating: [Rating] = []) {
+    init(name: String = "",
+         price: Optional<Double> = .none,
+         year: Optional<Int> = .none,
+         latestRating: [Rating] = []) {
         self.name = name
         self.price = price
         self.latestRating = latestRating
