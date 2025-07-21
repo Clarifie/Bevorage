@@ -27,13 +27,29 @@ struct BeverageView: View {
 }
 
 struct BeverageDetail: View {
-    var beverage: Beverage
+    @State var beverage: Beverage
     
     var body: some View {
-        Text("temp")
+        NavigationStack {
+            Form {
+                LabeledContent {
+                    TextField("Name", text: $beverage.name)
+                } label: {
+                    Text("Name")
+                }
+                LabeledContent {
+                    TextField("0.0", value: $beverage.price, formatter: PriceFormatter.formatter)
+                        .keyboardType(.decimalPad)
+                } label: {
+                    Text("Price")
+                }
+                
+            }
+            .navigationTitle( $beverage.name.wrappedValue)
+        }
     }
 }
 
 #Preview {
-    BeverageView(beverage: Beverage(name: "Onevinoen blanc deu pafwefwe wfe fewp", price: 1.0))
+    BeverageDetail(beverage: Beverage(name: "Onevinoen ", price: 1.0))
 }
